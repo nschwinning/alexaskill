@@ -20,6 +20,9 @@ public class HandlerSpeechlet implements SpeechletV2 {
 	@Autowired
 	private BeanFactory beanFactory;
 
+	@Autowired
+	private RecentScherbenHandler handler;
+	
 	@Override
 	public void onSessionStarted(SpeechletRequestEnvelope<SessionStartedRequest> requestEnvelope) {
 		// This is invoked when a new Alexa session is started. Any initialization logic
@@ -42,10 +45,12 @@ public class HandlerSpeechlet implements SpeechletV2 {
 		// This is invoked whenever an intent is invoked for our application. We need
 		// to figure out which intent it is, then respond.
 		// Get the intent from the request.
+		
 		IntentRequest request = requestEnvelope.getRequest();
 		Session session = requestEnvelope.getSession();
 		Intent intent = request.getIntent();
 
+		/*
 		// Determine which intent this is
 		String intentName = intent.getName();
 		// Load a handler
@@ -54,7 +59,8 @@ public class HandlerSpeechlet implements SpeechletV2 {
 
 		// Invoke the handler
 		IntentHandler intentHandler = (IntentHandler) handlerBean;
-		return intentHandler.handleIntent(intent, request, session);
+		*/
+		return handler.handleIntent(intent, request, session);
 	}
 
 	@Override

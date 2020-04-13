@@ -20,11 +20,13 @@ public class TestController {
 	private TwitterService twitterService;
 	
 	@GetMapping(value = "/status", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Status> getStatus() {
+	public ResponseEntity<String> getStatus() {
 		Status status = twitterService.getLatestStatusByUser("Scherben81");
-		if (status!=null)
+		if (status!=null) {
 			log.info(status.getText());
-		return new ResponseEntity<>(status, HttpStatus.OK);
+			return new ResponseEntity<>(status.getText(), HttpStatus.OK);
+		}
+		return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
 }
