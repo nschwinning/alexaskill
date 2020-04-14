@@ -30,16 +30,18 @@ public class TwitterService {
 	
 	@PostConstruct
 	public void init() {
-		String apiKey = properties.getApikey();
-        String apiSecret = properties.getApisecret();
-        String token = properties.getToken();
-        String tokenSecret = properties.getTokensecret();
-        
-        twitter = TwitterFactory.getSingleton();
-        twitter.setOAuthConsumer(apiKey, apiSecret);
-        AccessToken accessToken = new AccessToken(token, tokenSecret);
-        twitter.setOAuthAccessToken(accessToken);
-        
+		if (twitter==null) {
+			String apiKey = properties.getApikey();
+	        String apiSecret = properties.getApisecret();
+	        String token = properties.getToken();
+	        String tokenSecret = properties.getTokensecret();
+	        
+	        twitter = TwitterFactory.getSingleton();
+	        twitter.setOAuthConsumer(apiKey, apiSecret);
+	        AccessToken accessToken = new AccessToken(token, tokenSecret);
+	        twitter.setOAuthAccessToken(accessToken);
+		}
+                
         try {
 			log.info("Connected to twitter account " + twitter.getScreenName());
 		} catch (IllegalStateException | TwitterException e) {
