@@ -24,19 +24,7 @@ public class TestController {
 	@Autowired
 	private StatusMapper statusMapper;
 	
-	@GetMapping(value = "/status/{username}")
-	public ResponseEntity<String> getStatus(@PathVariable String username) {
-		Status status = twitterService.getLatestStatusByUser(username);
-		if (status!=null) {
-			log.info(status.getText());
-			//return status.getText();
-			return new ResponseEntity<>(status.getText(), HttpStatus.OK);
-		}
-		//return null;
-		return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-	}
-	
-	@GetMapping(value = "/twitterstatus/{username}", produces = "application/json;charset=UTF-8")
+	@GetMapping(value = "/api/twitterstatus/{username}", produces = "application/json;charset=UTF-8")
 	public ResponseEntity<TwitterStatus> getTwitterStatus(@PathVariable String username) {
 		Status status = twitterService.getLatestStatusByUser(username);
 		if (status!=null) {

@@ -20,6 +20,7 @@ public class StatusMapper {
 	}
 	
 	private String beautifyStatusMessage(String statusText) {
+		statusText = statusText.replaceAll("@[A-Za-z0-9\\_\\-]+", "").trim();
 		return statusText;
 	}
 	
